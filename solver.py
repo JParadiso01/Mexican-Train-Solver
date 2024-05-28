@@ -23,24 +23,24 @@ def main():
     print(starters)
     print()
 
-    train = list(list())
+    longest_train = list(list())
     for s in starters:
         t = list()
         t.append(s)
         d = dominoes.copy()
         d.remove(s)
         print(f"Starter: {s}")
-        possible_train = solve(d, t, length-1)
+        possible_train = solve(d, t)
         print('---------------')
         print(f"  Possible Train: {possible_train}")
-        if len(possible_train) >= len(train):
-            train = possible_train.copy()
+        if len(possible_train) >= len(longest_train):
+            longest_train = possible_train.copy()
 
-    print(f"This is the longest train:\n{train}")
+    print(f"This is the longest train:\n{longest_train}")
 
 
 #TODO: make it so the program checks all possible connections instead of just the first one
-def solve(dominoes, train, domLen):
+def solve(dominoes, train):
     print('---------------')
     print(f"  Dominos Left: {dominoes}")
     print(f"  Train: {train}")
@@ -52,7 +52,7 @@ def solve(dominoes, train, domLen):
         if CheckIfConnects(d, train[len(train)-1]):
             train.append(d)
             dominoes.remove(train[len(train)-1])
-            solve(dominoes, train, len(dominoes))
+            solve(dominoes, train)
     return train
 
 
